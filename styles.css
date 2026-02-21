@@ -1,0 +1,4 @@
+:root { color-scheme: dark; }
+html, body { height: 100%; margin: 0; background: #0b0c10; }
+#app, #canvas-wrap { height: 100%; width: 100%; overflow: hidden; }
+canvas { display: block; }
