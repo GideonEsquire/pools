@@ -44,7 +44,7 @@ const sketch = (p) => {
     sim.drawHUD(p);
 
     // If you added a selection panel helper in main.js, it would be called here:
-    // drawSelectionPanel(p, graph, model);
+    drawSelectionPanel(p, graph, model);
   };
 
   p.windowResized = () => {
@@ -67,5 +67,28 @@ const sketch = (p) => {
     else sim.onKey(p.key); // requires Simulator.onKey
   };
 };
+function drawSelectionPanel(p, graph, model) {
+  const lines = graph.getSelectedInfoLines(model);
 
+  const pad = 10;
+  const lineH = 16;
+  const w = 420;
+  const h = pad * 2 + lineH * lines.length;
+
+  const x = 12;
+  const y = p.height - h - 12;
+
+  p.push();
+  p.fill(0, 0, 0, 140);
+  p.stroke(255, 255, 255, 40);
+  p.rect(x, y, w, h, 12);
+
+  p.noStroke();
+  p.fill(240);
+  p.textSize(12);
+  for (let i = 0; i < lines.length; i++) {
+    p.text(lines[i], x + pad, y + pad + 12 + i * lineH);
+  }
+  p.pop();
+}
 new window.p5(sketch);
