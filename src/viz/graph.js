@@ -28,7 +28,7 @@ export class Graph {
 		if (!names || names.length === 0) return "(none)";
 		if (names.length <= maxShown) return names.join(", ");
 		const shown = names.slice(0, maxShown).join(", ");
-		return `${shown} +${names.length - maxShown} more`;
+		return `${names.length} memberships`;
 	}
 
 	stepPhysics() {
@@ -132,12 +132,13 @@ export class Graph {
 			const inc = sumIncoming(u.id);
 			lines.push(`  debt outgoing: $${out}`);
 			lines.push(`  debt incoming: $${inc}`);
+			lines.push(`  equity: $${u.cash + sumIncoming(u.id) - sumOutgoing(u.id)}`);
 
 			if (!u.isPool && u.id !== "world") {
 				const pools = model.getPoolsForMember(u.id);
 				// show names if possible
 				const poolNames = pools.map(pid => model.userById(pid)?.name ?? pid);
-				lines.push(  `pools: ${this.formatPoolList(poolNames, 2)}`);
+				lines.push(  `  pools: ${this.formatPoolList(poolNames, 2)}`);
 			} else if (u.isPool) {
 				// pool info (optional but useful)
 				const members = model.getPoolMemberIds(u.id);
