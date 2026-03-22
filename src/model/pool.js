@@ -181,7 +181,6 @@ export class Pool {
 		pushLog?.(`POOL GIVE: ${pool.name} distributed (members + debts)`);
 	}
 
-
 	distributeDrainEvenToMembers(model, rng, pushLog) {
 		const pool = model.userById(this.id);
 		if (!pool) return;
